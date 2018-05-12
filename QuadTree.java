@@ -147,24 +147,7 @@ public class QuadTree {
 			System.out.printf("ERROR : Unhandled partition %d %d", x, y);
 	}
 
-	public static void main(String args[]) throws FileNotFoundException, IOException {
-		QuadTree q1 = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
-                String cadena;
-        FileReader f = new FileReader("Prueba.txt");
-        BufferedReader b = new BufferedReader(f);
-       
-        while((cadena = b.readLine())!=null) {
-            String[] papu = cadena.split(",");
-            int x= Integer.parseInt(papu[0]);
-            int y= Integer.parseInt(papu[1]);
-            
-            q1.insert(x, y, 1);
-            
-            
-        }
-        b.close();
-        QuadTree.dfs(q1);
-    }
+	
         
 		
 	}
