@@ -2,6 +2,10 @@ package proyectodatos;
 
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,25 +147,28 @@ public class QuadTree {
 			System.out.printf("ERROR : Unhandled partition %d %d", x, y);
 	}
 
-	public static void main(String args[]) {
-		QuadTree anySpace = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
-		anySpace.insert(100, 100, 1);
-		anySpace.insert(500, 500, 1);
-		anySpace.insert(600, 600, 1);
-		anySpace.insert(700, 600, 1);
-		anySpace.insert(800, 600, 1);
-		anySpace.insert(900, 600, 1);
-		anySpace.insert(510, 610, 1);
-		anySpace.insert(520, 620, 1);
-		anySpace.insert(530, 630, 1);
-		anySpace.insert(540, 640, 1);
-		anySpace.insert(550, 650, 1);
-		anySpace.insert(555, 655, 1);
-		anySpace.insert(560, 660, 1);
-		//Traveling the graph
-		QuadTree.dfs(anySpace);
+	public static void main(String args[]) throws FileNotFoundException, IOException {
+		QuadTree q1 = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
+                String cadena;
+        FileReader f = new FileReader("Prueba.txt");
+        BufferedReader b = new BufferedReader(f);
+       
+        while((cadena = b.readLine())!=null) {
+            String[] papu = cadena.split(",");
+            int x= Integer.parseInt(papu[0]);
+            int y= Integer.parseInt(papu[1]);
+            
+            q1.insert(x, y, 1);
+            
+            
+        }
+        b.close();
+        QuadTree.dfs(q1);
+    }
+        
+		
 	}
-}
+
 
 
  
