@@ -43,6 +43,7 @@ public class Mostrar {
         }
         b.close();
         QuadTree.dfs(q1);
+        s
     }
 
 }
