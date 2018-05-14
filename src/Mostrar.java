@@ -6,47 +6,56 @@
 
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 /**
  *
  * @author xltiagoxl
  */
-public class Mostrar {
-
-    JFrame mapa = new JFrame();
-
-    public Mostrar() throws IOException {
-        mapa = new JFrame("Mantrix");
-        mapa.setBounds(0, 0, 1000, 1000);
-        mapa.setBackground(Color.yellow);
-        mapa.setLayout(null);
-        mapa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mapa.setVisible(true);
-
-        QuadTree q1 = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
-        String cadena;
-        FileReader f = new FileReader("Prueba.txt");
-        BufferedReader b = new BufferedReader(f);
-
-        while ((cadena = b.readLine()) != null) {
-            String[] papu = cadena.split(",");
-            int x = Integer.parseInt(papu[0]);
-            int y = Integer.parseInt(papu[1]);
-
-            q1.insert(x, y);
-            
-        }
-        b.close();
-        QuadTree.dfs(q1);
-        
+public class Mostrar extends JFrame{
+	AgregarAbejas bee=new AgregarAbejas();
+    double radio=0.0001;
+    
+    public Mostrar() {
+    	
+    	super("Dibujar");
+			
+		
+    	setSize(500,500);
+    	setVisible(true);
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+  
+    
+    public void paint(Graphics g) {
+   
+    	super.paint(g);
+    	Graphics2D circulo=(Graphics2D)g;
+    	circulo.setStroke(new BasicStroke(10.f));
+    	circulo.setPaint(Color.BLUE);
+    	for(int i=0;i<bee.Ejex.size();i++) {
+    		circulo.fillOval(bee.Ejex.get(i),bee.Ejey.get(i), 10, 10);
+    	}
+    	
+    }
     }
 
-}
+    
+   
+    
+    
+ 
+
 
 
