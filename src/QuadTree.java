@@ -1,11 +1,6 @@
 
 
-
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +59,7 @@ public class QuadTree {
 	QuadTree southWest = null;
 	QuadTree southEast = null;
 	Boundry boundry;
-
+	Boolean split;
 	QuadTree(int level, Boundry boundry) {
 		this.level = level;
 		Bees = new ArrayList<Abeja>();
@@ -98,7 +93,8 @@ public class QuadTree {
 				+ (this.boundry.getxMax() - this.boundry.getxMin()) / 2;
 		int yOffset = this.boundry.getyMin()
 				+ (this.boundry.getyMax() - this.boundry.getyMin()) / 2;
-
+	
+		
 		northWest = new QuadTree(this.level + 1, new Boundry(
 				this.boundry.getxMin(), this.boundry.getyMin(), xOffset,
 				yOffset));
@@ -109,15 +105,16 @@ public class QuadTree {
 				this.boundry.getyMax()));
 		southEast = new QuadTree(this.level + 1, new Boundry(xOffset, yOffset,
 				this.boundry.getxMax(), this.boundry.getyMax()));
+		split=true;
 
 	}
 
-	void insert(int x, int y) {
+	void insert(int x, int y, int val) {
 		if (!this.boundry.inRange(x, y)) {
 			return;
 		}
 
-		Abeja bee = new Abeja(x, y);
+		Abeja bee = new Abeja(x, y, val);
 		if (Bees.size() < MAX_CAPACITY) {
 			Bees.add(bee);
 			return;
@@ -129,16 +126,66 @@ public class QuadTree {
 
 		// Check coordinates belongs to which partition 
 		if (this.northWest.boundry.inRange(x, y))
-			this.northWest.insert(x, y);
+			this.northWest.insert(x, y,val);
 		else if (this.northEast.boundry.inRange(x, y))
-			this.northEast.insert(x, y);
+			this.northEast.insert(x, y,val);
 		else if (this.southWest.boundry.inRange(x, y))
-			this.southWest.insert(x, y);
+			this.southWest.insert(x, y,val);
 		else if (this.southEast.boundry.inRange(x, y))
-			this.southEast.insert(x, y);
-		else
-			System.out.printf("ERROR : Unhandled partition %d %d", x, y);
+			this.southEast.insert(x, y,val);
+		//elseprivate void dfs(Nodo nodo) {
 	}
+	
+	public int Calculardis(Abeja first,Abeja second) {
+		int x1=first.getX();
+		int y1=first.getY();
+		int x2=second.getX();
+		int y2=second.getY();
+		
+		int cat1=x1-x2;
+		int cat2=y1-y2;
+		
+		int distancia=(int)Math.sqrt(cat1*cat1 + cat2*cat2);
+		
+		return distancia;
+	}
+	
+	
+	public  boolean colision(Abeja first, Abeja second,int distancia) {
+		double rad1=first.getRadio();
+		double rad2=second.getRadio();
+		boolean yes=false;
+		double radmax=rad1+rad2;
+		
+		if(radmax> distancia) {
+			yes=true;
+		}
+		
+		return true;
+		
+	}
+	
+	public void Chocan() {
+		for(int i=0;i<Bees.size()-1;i++) {
+			Abeja aux;
+			Abeja aux2;
+			aux=Bees.get(i);
+			aux2=Bees.get(i+1);
+			
+			
+			if(colision(aux,aux2,Calculardis(aux,aux2))) {
+				System.out.println("Colisionan");
+				
+			}else
+				System.out.println("No colisionan");
+			
+		}
+	}
+	
+	
+	
+	
+	
 
 	
         
@@ -148,3 +195,5 @@ public class QuadTree {
 
 
  
+
+

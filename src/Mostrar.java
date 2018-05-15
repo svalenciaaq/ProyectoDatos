@@ -23,7 +23,10 @@ import javax.swing.JFrame;
  * @author xltiagoxl
  */
 public class Mostrar extends JFrame{
+	
+
 	AgregarAbejas bee=new AgregarAbejas();
+
     double radio=0.0001;
     
     public Mostrar() {
@@ -31,9 +34,10 @@ public class Mostrar extends JFrame{
     	super("Dibujar");
 			
 		
-    	setSize(500,500);
+    	setSize(1000,1000);
     	setVisible(true);
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	
     }
     
   

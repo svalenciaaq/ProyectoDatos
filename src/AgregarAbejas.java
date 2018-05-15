@@ -1,3 +1,4 @@
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,13 +8,15 @@ import java.util.ArrayList;
 public class AgregarAbejas {
 	 static ArrayList<Integer>Ejex=new ArrayList<Integer>();
 	static ArrayList<Integer>Ejey=new ArrayList<Integer>();
+	 ArrayList<Abeja> aux=new ArrayList<Abeja>();
 public AgregarAbejas() {
 
-	         QuadTree q1 = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
+	         QuadTree tree = new QuadTree(1, new Boundry(0, 0, 1000, 1000));
 	         String cadena;
 	         FileReader f = null;
+	         int i=0;
 			try {
-				f = new FileReader("Prueba.txt");
+				f = new FileReader("ConjuntoDeDatosCon10abejas.txt");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -31,14 +34,19 @@ public AgregarAbejas() {
 				     double ent2=(double)(y-6.30);
 				     int yaux=(int)(ent2*10000);
 				     int yt=((yaux-700)*-1);
-				     System.out.println(xt+""+yt);
+				     
 				     Ejex.add(xt);
 				     Ejey.add(yt);
-				     q1.insert(xt, yt);
+				     
+					tree.insert(xt, yt, i);
+					Abeja bee=new Abeja(xt,yt,i);
+					aux.add(bee);
+					i++;
 				    
 				     
 				     
 				 }
+
 			} catch (NumberFormatException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -49,7 +57,10 @@ public AgregarAbejas() {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	         QuadTree.dfs(q1);
+	         
+	       tree.Chocan();
+	    
+	       
 	         
 	    }
 	  
