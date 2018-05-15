@@ -51,6 +51,7 @@ class Boundry {
 
 public class QuadTree {
 	
+    static ArrayList<Abeja> beeAux=new ArrayList<Abeja>();
 	final int MAX_CAPACITY =4;
 	int level = 0;
 	List<Abeja> Bees;
@@ -133,7 +134,8 @@ public class QuadTree {
 			this.southWest.insert(x, y,val);
 		else if (this.southEast.boundry.inRange(x, y))
 			this.southEast.insert(x, y,val);
-		//elseprivate void dfs(Nodo nodo) {
+		//else
+		//	System.out.printf("ERROR : Unhandled partition %d %d", x, y);
 	}
 	
 	public int Calculardis(Abeja first,Abeja second) {
@@ -161,27 +163,58 @@ public class QuadTree {
 			yes=true;
 		}
 		
-		return true;
+		return yes;
 		
 	}
 	
 	public void Chocan() {
-		for(int i=0;i<Bees.size()-1;i++) {
+	
+		for(int i=0;i<beeAux.size()-1;i++) {
 			Abeja aux;
 			Abeja aux2;
-			aux=Bees.get(i);
-			aux2=Bees.get(i+1);
+			aux=beeAux.get(i);
+			aux2=beeAux.get(i+1);
 			
 			
 			if(colision(aux,aux2,Calculardis(aux,aux2))) {
 				System.out.println("Colisionan");
 				
-			}else
+			}else {
 				System.out.println("No colisionan");
-			
+			}
 		}
 	}
 	
+	static void sacarAbejas(QuadTree tree) {
+		if (tree == null)
+			return;
+
+
+		for (Abeja bee : tree.Bees) {
+			beeAux.add(bee);
+		}
+		if (tree.Bees.size() == 0) {
+			
+		}
+		sacarAbejas(tree.northWest);
+		sacarAbejas(tree.northEast);
+		sacarAbejas(tree.southWest);
+		sacarAbejas(tree.southEast);
+
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+    }
+
 	
 	
 	
@@ -190,7 +223,7 @@ public class QuadTree {
 	
         
 		
-	}
+	
 
 
 

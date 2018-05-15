@@ -40,9 +40,8 @@ public AgregarAbejas() {
 				     
 					tree.insert(xt, yt, i);
 					Abeja bee=new Abeja(xt,yt,i);
-					aux.add(bee);
-					i++;
-				    
+				
+					
 				     
 				     
 				 }
@@ -58,7 +57,12 @@ public AgregarAbejas() {
 				e.printStackTrace();
 			}
 	         
-	       tree.Chocan();
+
+	   
+	   tree.sacarAbejas(tree);
+	   tree.Chocan();
+	   
+	       
 	    
 	       
 	         
